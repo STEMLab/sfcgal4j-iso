@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- =======================================================================    
+        Maven Project Configuration File                                        
+                                                                                
+        The Geotools Project                                                    
+            http://www.geotools.org/                                            
+                                                                                
+        Version: $Id$              
+     ======================================================================= -->
+  <project xmlns="http://maven.apache.org/POM/4.0.0" 
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+           xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                               http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.geotools</groupId>
+    <artifactId>geotools-iso</artifactId>
+    <version>15-SNAPSHOT</version>
+    <relativePath>../..</relativePath>
+  </parent>
+
+
+  <!-- =========================================================== -->
+  <!--     Module Description                                      -->
+  <!-- =========================================================== -->
+  <artifactId>gt-geometry-ng</artifactId>
+  <packaging>jar</packaging>
+  <name>Geometries 3D</name>
+  
+  <properties>
+    <allow.test.skip>true</allow.test.skip>
+    <allow.test.failure.ignore>true</allow.test.failure.ignore>
+    <maven.test.skip>true</maven.test.skip>
+  </properties>
+
+  <description>
+    Implementations of ISO 19107 (Spatial Schema).
+  </description>
+
+  <licenses>
+    <license>
+      <name>Lesser General Public License (LGPL)</name>
+      <url>http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+
+  <!-- =========================================================== -->
+  <!--     Developers and Contributors                             -->
+  <!-- =========================================================== -->
+  <developers>
+  	<developer>
+      <id>donguk.seo</id>
+      <name>DongUk Seo</name>
+      <email>donguk.seo@pnu.edu</email>
+      <organization>Pusan National University</organization>
+      <roles>
+        <role>Module Maintainer</role>
+        <role>Java Developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <id>hgryoo</id>
+      <name>Hyung-Gyo Ryoo</name>
+      <email>hyunggyu.ryoo@gmail.com</email>
+      <organization>Pusan National University</organization>
+      <roles>
+        <role>Module Maintainer</role>
+        <role>Java Developer</role>
+      </roles>
+    </developer>
+  </developers>
+  
+  <profiles>
+  	<profile>
+  		<id>windows</id>
+  		<activation>
+  			<os>
+  				<family>windows</family>
+  			</os>
+  		</activation>
+  		<properties>
+  			<script.extension>_windows.bat</script.extension>
+  		</properties>
+  	</profile>
+  	<profile>
+  		<id>linux</id>
+  		<activation>
+  			<os>
+  				<family>linux</family>
+  			</os>
+  		</activation>
+  		<properties>
+  			<script.extension>_linux.sh</script.extension>
+  		</properties>
+  	</profile>
+  </profiles>
+
+
+  <!-- ======================================================= -->
+  <!--     Compilation.                                        -->
+  <!-- ======================================================= -->
+  <build>
+    <plugins>
+      <!-- 
+      <plugin>
+      	<artifactId>exec-maven-plugin</artifactId>
+	      <groupId>org.codehaus.mojo</groupId>
+	      <executions>
+	        <execution>
+	            <id>Generating dll/so files</id>
+	            <phase>generate-test-sources</phase>
+	            <goals>
+	              <goal>exec</goal>
+	            </goals>
+	            <configuration>
+	              <executable>${basedir}/lib/build${script.extension}</executable>	              
+	            </configuration>
+	          </execution>
+	      </executions>
+        </plugin>
+        -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <!-- <skipTests>true</skipTests> -->
+          <excludes>
+            <exclude>**/RunStoredTest.java</exclude>
+          </excludes>
+          <testFailureIgnore>${allow.test.failure.ignore}</testFailureIgnore>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+
+  <!-- =========================================================== -->
+  <!--     Dependency Management                                   -->
+  <!-- =========================================================== -->
+  <dependencies>
+  
+  	<dependency>
+      <groupId>net.java.dev.jsr-275</groupId>
+      <artifactId>jsr-275</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.geotools</groupId>
+      <artifactId>gt-api</artifactId>
+      <version>${project.version}</version>  
+    </dependency>
+    <dependency>
+      <groupId>org.geotools</groupId>
+      <artifactId>gt-opengis</artifactId>
+      <version>${project.version}</version>  
+    </dependency>
+    <dependency>
+      <groupId>org.geotools</groupId>
+      <artifactId>gt-sample-data</artifactId>
+      <version>${project.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.geotools</groupId>
+      <artifactId>gt-epsg-hsql</artifactId>
+      <version>${project.version}</version>
+      <scope>test</scope>
+    </dependency>
+	<dependency>
+	    <groupId>picocontainer</groupId>
+	    <artifactId>picocontainer</artifactId>
+	    <version>3</version>
+	    <scope>test</scope>
+	</dependency>       
+	<dependency>
+	    <groupId>org.bytedeco</groupId>
+	    <artifactId>javacpp</artifactId>
+	    <version>1.1</version>
+	</dependency>
+  </dependencies>
+
+</project>
